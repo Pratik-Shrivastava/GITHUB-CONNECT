@@ -5,7 +5,7 @@ const Logo = () => {
         <div className='logo'>
             <h1>
                 <span>
-                    Git
+                    Github
                 </span>Connect
 
             </h1>

@@ -6,17 +6,18 @@ import {
 // import App from './App.jsx'
 import './index.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Home from './components/Home.jsx'
-import About from './components/About.jsx'
+import Home from './Pages/Home.jsx'
+import About from './Pages/About.jsx'
 import Layout from './Layout.jsx';
+import Connect from './Pages/Connect.jsx';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path='/' element={<Layout />}>
       <Route path='' element={<Home />} />
       <Route path='about' element={<About />} />
-      {/* <Route path='contact' element={<Contact />} /> */}
-      {/* <Route path='user/:userid' element={<User />} /> */}
+      <Route path='connect' element={<Connect />} />
+
     </Route>
   )
 )
