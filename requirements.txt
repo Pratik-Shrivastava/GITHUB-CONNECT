@@ -1,2 +1,6 @@
 Django
 psycopg2
+djangorestframework
+requests
+pandas
+openpyxl
