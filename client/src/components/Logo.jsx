@@ -2,14 +2,10 @@ import React from 'react'
 
 const Logo = () => {
     return (
-        <div className='logo'>
-            <h1>
-                <span>
-                    Github
-                </span>Connect
+        <>
+            <span className='text-info'>Github</span>Connect
+        </>
 
-            </h1>
-        </div>
     )
 }
 

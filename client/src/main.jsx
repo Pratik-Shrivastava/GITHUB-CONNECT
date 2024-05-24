@@ -10,6 +10,7 @@ import Home from './Pages/Home.jsx'
 import About from './Pages/About.jsx'
 import Layout from './Layout.jsx';
 import Connect from './Pages/Connect.jsx';
+import UserProfile from './Pages/UserProfile.jsx';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -17,6 +18,7 @@ const router = createBrowserRouter(
       <Route path='' element={<Home />} />
       <Route path='about' element={<About />} />
       <Route path='connect' element={<Connect />} />
+      <Route path='profile' element={<UserProfile />} />
 
     </Route>
   )

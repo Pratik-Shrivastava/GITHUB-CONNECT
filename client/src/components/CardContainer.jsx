@@ -10,21 +10,7 @@ const CardContainer = () => {
                     <div className="col">
                         <UserCard />
                     </div>
-                    <div className="col">
-                        <UserCard />
-                    </div>
-                    <div className="col">
-                        <UserCard />
-                    </div>
-                    <div className="col">
-                        <UserCard />
-                    </div>
-                    <div className="col">
-                        <UserCard />
-                    </div>
-                    <div className="col">
-                        <UserCard />
-                    </div>
+
 
                 </div>
             </div>

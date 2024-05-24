@@ -30,7 +30,7 @@ const Connect = () => {
             </div>
         </div>
         {/* TODO : Conditional rendering after fetch successfull */}
-        {/* <CardContainer /> */}
+        <CardContainer />
     </>
     )
 }
