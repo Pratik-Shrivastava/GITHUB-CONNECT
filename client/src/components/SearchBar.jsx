@@ -1,64 +1,26 @@
-import React from 'react'
+import React from 'react';
 
 const SearchBar = () => {
     return (
-        <>
-            <button className='icon-btn search-toggler'
-                aria-controls='searchBox'
-                aria-expanded="false"
-                aria-label="Toggle search"
-                data-search-toggler>
-
-                <span class="material-symbols-rounded search-icon"
-                    aria-hidden="true"
-                >search</span>
-
-                <span class="material-symbols-rounded close-icon"
-                    aria-hidden="true"
-                >arrow_back</span>
-            </button>
-            <div className='search-box' id="searchBox">
-                <span class="material-symbols-rounded leading-icon"
-                    aria-hidden="true"
-                >search</span>
-
+        <div className="flex flex-col lg:flex-row items-center justify-center lg:justify-between bg-gray-100 p-4 rounded-md shadow-md">
+            {/* Left side: Search bar */}
+            <div className="flex items-center mb-4 lg:mb-0">
                 <input
-                    type="search"
-                    name='search'
-                    aria-label="search github username"
-                    placeholder='Search username*'
-                    id=''
-                    className='search-field label-1'
-                    data-search-field
+                    type="text"
+                    placeholder="Search GitHub profiles..."
+                    className="px-4 py-2 w-full lg:w-auto bg-white rounded-md border text-black border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
-
-                <button
-                    className='search-btn'
-                    aria-label='Search-submit'
-                    data-search-submit
-                >
-                    <span class="material-symbols-rounded "
-                        aria-hidden="true"
-                    >search</span>
-
-                    <span className='label-1'>Search</span>
+                <button className="ml-2 bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-md font-semibold">
+                    Search
                 </button>
-            </div >
+            </div>
 
-            <button className='icon-btn theme-btn' aria-pressed="false"
-                aria-label="Toggle dark and light theme"
-                data-theme-btn>
-                <span class="material-symbols-rounded sun-icon"
-                    aria-hidden="true">
-                    light_mode</span>
-
-                <span class="material-symbols-rounded moon-icon"
-                    aria-hidden="true"
-                >dark_mode</span>
-
-            </button>
-        </>
-    )
+            {/* Right side: Instructions */}
+            <p className="text-center lg:text-left text-gray-700">
+                Enter a GitHub username above to search for profiles.
+            </p>
+        </div>
+    );
 }
 
-export default SearchBar
+export default SearchBar;

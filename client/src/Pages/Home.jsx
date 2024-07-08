@@ -1,12 +1,13 @@
 import React from 'react'
 import Hero from '../components/Hero'
-import Features from '../components/Features'
+import FeatureSection from '../components/FeatureSection'
 
-const Home = () => {
+function Home() {
     return (
         <div>
             <Hero />
-            <Features />
+            <FeatureSection />
+
         </div>
     )
 }
