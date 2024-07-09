@@ -7,13 +7,15 @@ import {
 import './index.css'
 import Layout from './Layout.jsx'
 import Home from './pages/Home.jsx';
-import GetConnect from './pages/GetConnect.jsx';
+import Users from './pages/Users.jsx';
+import UserInfo from './pages/UserInfo.jsx';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path='/' element={<Layout />}>
       <Route path='' element={<Home />} />
-      <Route path='get-connect' element={<GetConnect />} />
+      <Route path='get-connect' element={<Users />} />
+      <Route path=':name' element={<UserInfo />} />
     </Route>
   )
 )
