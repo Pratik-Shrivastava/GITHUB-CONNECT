@@ -51,17 +51,17 @@ function Users() {
     }, []); // Run once on component mount
 
     return (
-        <div>
-
+        <div className='p-5'>
             {/* Search bar */}
             <div className='flex justify-center items-center h-11 my-5 '>
-                <input type='text'
-                    placeholder='Search github username..'
-                    className='h-full md:w-1/3 w-2/3 text-gray-800 px-6 font-semibold outline-none '
+                <input
+                    type='text'
+                    placeholder='Search github username...'
+                    className='h-full md:w-1/3 w-2/3 text-gray-800 mx-2 px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-teal-500'
                     ref={user}
                 />
                 <button
-                    className='bg-teal-500 font-semibold px-4 h-full'
+                    className='bg-teal-500 text-white font-semibold px-4 py-2 rounded-lg border-t border-r border-b border-teal-500 hover:bg-teal-600 focus:outline-none focus:ring-2 focus:ring-teal-500'
                     onClick={getUser}>
                     Search
                 </button>

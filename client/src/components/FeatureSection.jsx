@@ -4,7 +4,7 @@ const FeatureSection = () => {
     return (
         <section className="py-12 bg-gray-800">
             <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-                <h2 className="text-3xl font-bold text-white text-center mb-8">Our Features</h2>
+                <h2 className="text-4xl font-bold text-cyan-300 text-center mb-8">Our Features</h2>
                 <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
                     {/* Feature 1 */}
                     <div className="bg-gray-700 p-6 rounded-lg text-center">
@@ -14,7 +14,7 @@ const FeatureSection = () => {
                             </svg>
                         </div>
                         <h3 className="text-xl font-semibold text-white mb-2">List</h3>
-                        <p className="text-gray-400">Description for feature one. It provides these great benefits.</p>
+                        <p className="text-gray-400">Easily browse through GitHub profiles.</p>
                     </div>
 
                     {/* Feature 2 */}
@@ -25,7 +25,7 @@ const FeatureSection = () => {
                             </svg>
                         </div>
                         <h3 className="text-xl font-semibold text-white mb-2">Upload</h3>
-                        <p className="text-gray-400">Description for feature two. It provides these great benefits.</p>
+                        <p className="text-gray-400">Upload your projects and connect with others.</p>
                     </div>
 
                     {/* Feature 3 */}
@@ -36,7 +36,7 @@ const FeatureSection = () => {
                             </svg>
                         </div>
                         <h3 className="text-xl font-semibold text-white mb-2">Connect</h3>
-                        <p className="text-gray-400">Description for feature three. It provides these great benefits.</p>
+                        <p className="text-gray-400">Connect with developers and collaborators.</p>
                     </div>
                 </div>
             </div>
