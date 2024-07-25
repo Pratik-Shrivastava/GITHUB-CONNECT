@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import UserContainer from '../components/UserContainer';
 import Loading from '../components/Loading';
+import Dropbox from '../components/Dropbox';
 
 function Users() {
     const [users, setUsers] = useState([]);
@@ -66,6 +67,7 @@ function Users() {
                     Search
                 </button>
             </div>
+            <Dropbox />
 
             {/* Render Loading component if loading is true */}
             {loading && !error && <Loading />}

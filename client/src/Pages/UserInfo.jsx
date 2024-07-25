@@ -86,7 +86,7 @@ const UserInfo = () => {
             </div>
 
             <div className='lg:w-3/4 w-full p-4'>
-                <div className='flex border-b pb-4 gap-6 mt-4 lg:mt-0 mb-6 justify-center md:text-xl'>
+                <div className='flex border-b pb-4 gap-6 mt-4 lg:mt-0 mb-6 justify-center md:text-xl bg-gray-900 p-3 leading-8 rounded-lg'>
                     <Tabs type={type} setType={setType} />
                 </div>
 
