@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+
+<head>
+    <title>Financial Assistance Application</title>
+    <style>
+        * {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            font-size: 12px;
+        }
+
+        body {
+            margin: 20px 40px;
+            /* Adjusted for A4 paper margins */
+        }
+
+        .container {
+            width: 100%;
+        }
+
+        .header,
+        .content,
+        .footer {
+            text-align: center;
+        }
+
+        .header {
+            margin-bottom: 15px;
+        }
+
+        .content {
+            text-align: justify;
+        }
+
+        .content table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        .content table tr td {
+            padding: 5px;
+            vertical-align: top;
+        }
+
+        .number-column {
+            width: 5%;
+            text-align: center;
+        }
+
+        .label-column {
+            width: 40%;
+        }
+
+        .colon-column {
+            width: 5%;
+            text-align: center;
+        }
+
+        .value-column {
+            width: 50%;
+        }
+
+        .signature {
+            margin-top: 40px;
+            text-align: left;
+        }
+
+        h2 {
+            margin-bottom: 10px;
+        }
+
+        .declaration {
+            margin-bottom: 20px;
+        }
+
+        .bottom {
+            margin-top: 20px;
+            width: 100%;
+        }
+
+        .left,
+        .right {
+            display: inline-block;
+        }
+
+        .left {
+            width: 48%;
+            text-align: left;
+        }
+
+        .right {
+            width: 48%;
+            text-align: right;
+            float: right;
+        }
+
+        #comment {
+            margin-top: 15px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <h2>Annexure D</h2>
+            <h3><b><u>Application for One Time Financial Assistance to Individual Handloom Weavers Under <br/>
+                        West Bengal Handloom and Khadi Weavers Financial Benefit Scheme</u></b></h3>
+            <p>(Fill in Block Letters)</p>
+        </div>
+
+        <div class="content">
+            <table>
+                <tr>
+                    <td class="number-column">1.</td>
+                    <td class="label-column">Name of The Weaver</td>
+                    <td class="colon-column">:</td>
+                    <td class="value-column"><span th:text="${weaverName}">Sample Name</span></td>
+                </tr>
+                <tr>
+                    <td class="number-column">2.</td>
+                    <td class="label-column">Weavers ID Card No.</td>
+                    <td class="colon-column">:</td>
+                    <td class="value-column"><span th:text="${weaverId}">Sample Value</span></td>
+                </tr>
+                <tr>
+                    <td class="number-column">3.</td>
+                    <td class="label-column">Mobile Number</td>
+                    <td class="colon-column">:</td>
+                    <td class="value-column"><span th:text="${mobileNumber}">Sample Value</span></td>
+                </tr>
+                <tr>
+                    <td class="number-column">4.</td>
+                    <td class="label-column">Address</td>
+                    <td class="colon-column">:</td>
+                    <td class="value-column"><span th:text="${address}">Sample Value</span></td>
+                </tr>
+                <tr>
+                    <td class="number-column">5.</td>
+                    <td class="label-column">Aadhar No.</td>
+                    <td class="colon-column">:</td>
+                    <td class="value-column"><span th:text="${aadharNumber}">Sample Value</span></td>
+                </tr>
+                <tr>
+                    <td class="number-column">6.</td>
+                    <td class="label-column">PAN No.</td>
+                    <td class="colon-column">:</td>
+                    <td class="value-column"><span th:text="${panNumber}">Sample Value</span></td>
+                </tr>
+                <tr>
+                    <td class="number-column">7.</td>
+                    <td class="label-column">If Registered Under SSY (Samajik Suraksha<br/>Yojna) Yes/No<br/>If Yes
+                        Provide The Registration Number</td>
+                    <td class="colon-column">:</td>
+                    <td class="value-column">
+                        <span th:text="${ssyRegistered}">Sample Value</span><br/>
+                        <span th:text="${ssyRegistrationNumber}">Sample Value</span>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="number-column">8.</td>
+                    <td class="label-column">Bank A/C No.</td>
+                    <td class="colon-column">:</td>
+                    <td class="value-column"><span th:text="${bankAccountNumber}">Sample Value</span></td>
+                </tr>
+                <tr>
+                    <td class="number-column">9.</td>
+                    <td class="label-column">Name of The Bank With Branch</td>
+                    <td class="colon-column">:</td>
+                    <td class="value-column"><span th:text="${bankNameWithBranch}">Sample Value</span></td>
+                </tr>
+                <tr>
+                    <td class="number-column">10.</td>
+                    <td class="label-column">IFSC Code</td>
+                    <td class="colon-column">:</td>
+                    <td class="value-column"><span th:text="${ifscCode}">Sample Value</span></td>
+                </tr>
+                <tr>
+                    <td class="number-column">11.</td>
+                    <td class="label-column">Address of The Loom Shed/Unit</td>
+                    <td class="colon-column">:</td>
+                    <td class="value-column"><span th:text="${loomShedAddress}">Sample Value</span></td>
+                </tr>
+                <tr>
+                    <td class="number-column">12.</td>
+                    <td class="label-column">No. of Looms in Operation</td>
+                    <td class="colon-column">:</td>
+                    <td class="value-column"><span th:text="${numberOfLooms}">Sample Value</span></td>
+                </tr>
+                <tr>
+                    <td class="number-column">13.</td>
+                    <td class="label-column">Type of Product Produced</td>
+                    <td class="colon-column">:</td>
+                    <td class="value-column"><span th:text="${typeOfProductProduced}">Sample Value</span></td>
+                </tr>
+                <tr>
+                    <td class="number-column">14.</td>
+                    <td class="label-column">Total Production of FY 2023-24 (As on<br/>31.03.2024)</td>
+                    <td class="colon-column">:</td>
+                    <td class="value-column"><span th:text="${totalProduction}">Sample Value</span></td>
+                </tr>
+                <tr>
+                    <td class="number-column">15.</td>
+                    <td class="label-column">Total Sales Turnover of FY 2023-24 (As on<br/>31.03.2024)</td>
+                    <td class="colon-column">:</td>
+                    <td class="value-column"><span th:text="${totalSalesTurnover}">Sample Value</span></td>
+                </tr>
+                <tr>
+                    <td class="number-column">16.</td>
+                    <td class="label-column">Details Of Repairs/Renovation Done For<br/>Looms/Loom Shed (Annexure D(I)
+                        To Be<br/>Attached)</td>
+                    <td class="colon-column">:</td>
+                    <td class="value-column"><span th:text="${renovationDetails}">Sample Value</span></td>
+                </tr>
+                <tr>
+                    <td class="number-column">17.</td>
+                    <td class="label-column">Amount Claimed In Rs.</td>
+                    <td class="colon-column">:</td>
+                    <td class="value-column"><span th:text="${amountClaimed}">Sample Value</span></td>
+                </tr>
+                <tr>
+                    <td class="number-column">18.</td>
+                    <td class="label-column">
+                        Have You Received Any Incentive Under<br/>Any State Or Central Government
+                        Scheme<br/>(Y/N)<br/>[If Yes, Details Of The Scheme]
+                    </td>
+                    <td class="colon-column">:</td>
+                    <td class="value-column">
+                        <span th:text="${hasReceivedIncentive}">Sample Value</span><br/>
+                        <span th:text="${schemeDetails}">Sample Value</span>
+                    </td>
+                </tr>
+            </table>
+
+            <br/>
+            <div class="declaration">
+                <p>I, sri/smt <span th:text="${weaverName}"></span>, hereby declare that the above information is
+                    correct to the best of my knowledge and belief and I am not a part of any Primary Weavers
+                    Co-operative Society.</p>
+            </div>
+            <div class="bottom">
+                <div class="left">
+                    <p><b>Place:</b></p><br/>
+                    <p><b>Date:</b></p>
+                </div>
+                <div class="right">
+                    <p><b>Signature of the Weaver</b></p>
+                </div>
+            </div>
+
+            <br/>
+            <hr/>
+            <p id="comment">Comment of the Development Officer (Handloom):</p>
+            <div class="bottom">
+                <div class="left">
+                    <p><b>Place:</b></p><br/>
+                    <p><b>Date:</b></p>
+                </div>
+                <div class="right">
+                    <p><b>Signature of the DO(H)</b></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+
+<head>
+    <title>Annexure D(I)</title>
+    <style>
+        * {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            font-size: 12px;
+        }
+
+        body {
+            margin: 20px 40px;
+            /* Adjusted for A4 paper margins */
+        }
+
+        .container {
+            width: 100%;
+        }
+
+        .header,
+        .content,
+        .footer {
+            text-align: center;
+        }
+
+        .header {
+            margin-bottom: 15px;
+        }
+
+        .content {
+            text-align: justify;
+        }
+
+        .content p {
+            margin: 5px 0;
+        }
+
+        .content b {
+            font-weight: bold;
+        }
+
+        .signature {
+            margin-top: 40px;
+            text-align: left;
+        }
+
+        .page-break {
+            page-break-after: always;
+        }
+
+        h2 {
+            margin-bottom: 10px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        th,
+        td {
+            padding: 5px;
+            text-align: center;
+        }
+
+        .label-column,
+        .value-column {
+            text-align: left;
+        }
+
+
+        .no-border td {
+            border: none;
+        }
+
+        .bordered-table th,
+        .bordered-table td {
+            border: 1px solid black;
+        }
+
+        .number-column,
+        .colon-column {
+            width: 5%;
+        }
+
+        .label-column {
+            width: 30%;
+        }
+
+        .value-column {
+            width: 60%;
+        }
+
+        .left,
+        .right {
+            display: inline-block;
+        }
+
+        .left {
+            width: 48%;
+            text-align: left;
+        }
+
+        .right {
+            width: 48%;
+            text-align: right;
+            float: right;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <h2><u>Annexure D(I)</u></h2>
+        </div>
+
+        <div class="content">
+            <table class="no-border">
+                <tr>
+                    <td class="number-column">1.</td>
+                    <td class="label-column">Name of the Weaver</td>
+                    <td class="colon-column">:</td>
+                    <td class="value-column"><span th:text="${weaverName}">Sample Data</span></td>
+                </tr>
+                <tr>
+                    <td class="number-column">2.</td>
+                    <td class="label-column">Address</td>
+                    <td class="colon-column">:</td>
+                    <td class="value-column"><span th:text="${address}">Sample Data</span></td>
+                </tr>
+                <tr>
+                    <td class="number-column">3.</td>
+                    <td class="label-column">No. of looms</td>
+                    <td class="colon-column">:</td>
+                    <td class="value-column"><span th:text="${numberOfLooms}">Sample Data</span></td>
+                </tr>
+                <tr>
+                    <td class="number-column">4.</td>
+                    <td colspan="3" class="label-column">Particulars of repaired/replaced items with price details:</td>
+                </tr>
+            </table>
+
+            <table class="bordered-table">
+                <thead>
+                    <tr>
+                        <th>SL No.</th>
+                        <th>Name of repaired/replaced items</th>
+                        <th>Voucher No.</th>
+                        <th>Date</th>
+                        <th>Price</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <span th:utext=${column}>
+                    </span>
+                    <tr>
+                        <td colspan="4">TOTAL</td>
+                        <td><span th:text="${totalPrice}"> Sample Price
+                        </span></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <br/>
+            <div class="bottom">
+                <div class="left">
+                </div>
+                <div class="right">
+                    <p><b>Signature of the Handloom Weaver</b></p>
+                </div>
+            </div>
+            <br/>
+            <p>This is to certify that <b><span th:text="${weaverName}">Sample Name</span></b> (Name and address of the Weaver)
+                <span th:text="${totalAddress}">Sample Address</span>is a handloom weaver and not associated with any PWCS has repaired and/or renovated his/her loom/looms/work shed.</p>
+            <p>I do verify and recommend before the state govt to sanction Rs. <span th:text="${totalPrice}"></span>
+                to <span th:text="${weaverName}"></span> for repair/renovation of his/her looms/loom shed under the West
+                Bengal Handloom and Khadi Weavers Financial Benefit Scheme.</p>
+
+                <div class="bottom">
+                    <div class="left">
+                        <p><b>Place:</b></p>
+                        <p><b>Date:</b></p>
+                    </div>
+                    <div class="right">
+                        <p><b>Signature of the DO(H)</b></p>
+                        <p><b>.........................District</b></p>
+                    </div>
+                </div>
+            <br/>
+            <br/>
+            <hr/>
+            <br/>
+            <br/>
+            <br/>
+            <div class="footer">
+                <h2>Receipt Copy for the applicant</h2>
+            </div>
+            <p>I, Shri/Smt. ................................................................, DO(H) of ................................................................, (Zone/ Area Number) verified the
+                content of Annexure D of the application of Shri/Smt. <b><span th:text="${weaverName}">Sample Name</span></b> for the one-time
+                financial assistance to the individual weavers under the West Bengal Handloom and Khadi Weavers
+                Financial Benefit Scheme 2024.</p>
+                <div class="bottom">
+                    <div class="left">
+                        <p><b>Place:</b></p>
+                        <p><b>Date:</b></p>
+                    </div>
+                    <div class="right">
+                        <p><b>Signature with stamp of the DO(H)</b></p>
+                        <p><b>.........................District</b></p>
+                    </div>
+                </div>
+        </div>
+    </div>
+</body>
+
+</html>
