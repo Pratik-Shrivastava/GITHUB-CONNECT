@@ -1,29 +1,37 @@
-package com.pratik.GithHubConnect.excel.controller;
+package com.pratik.GithHubConnect.controller;
 
 import com.pratik.GithHubConnect.common.model.GeneralResponse;
+import com.pratik.GithHubConnect.common.model.GitHubUserData;
+import com.pratik.GithHubConnect.common.utils.RowMapperUtil;
 import com.pratik.GithHubConnect.constants.AppConstants;
 import org.apache.poi.ss.usermodel.*;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.List;
 
 @RestController
 public class ExcelController {
 
+
 	@PostMapping("/upload-excel")
-	public Object getGitHubLinksFromExcel(@RequestParam("file") MultipartFile file,
-												   @RequestParam(value = "columnName", required = false) String columnName) {
+	public Object getGitHubLinksFromExcel(
+			@RequestParam("file") MultipartFile file,
+			@RequestParam(value = "columnName", required = false) String columnName
+	) {
 		try {
 			Workbook workbook = WorkbookFactory.create(file.getInputStream());
 			Sheet sheet = workbook.getSheetAt(0); // Assuming data is in the first sheet
 
 			List<String> names = new ArrayList<>();
-			int columnIndex = findColumnIndex(sheet.getRow(0), columnName);
+			int columnIndex = RowMapperUtil.findColumnIndex(sheet.getRow(0), columnName);
 
 			if (columnIndex == -1) {
 				return new ResponseEntity<>(
@@ -67,18 +75,33 @@ public class ExcelController {
 		}
 	}
 
-	private int findColumnIndex(Row headerRow, String columnName) {
-		if (columnName == null) {
-			return 0; // Default to first column
+
+	@PostMapping(
+			value = "/github-user-data/download-excel",
+			consumes = MediaType.APPLICATION_JSON_VALUE,
+			produces = MediaType.APPLICATION_JSON_VALUE
+	)
+	public void getExcelFile(
+			HttpServletRequest request,
+			HttpServletResponse response,
+//			@RequestParam("apikey") String apiKey,
+			@RequestBody List<GitHubUserData> gitHubUserDataList
+	) throws Exception {
+
+		if (gitHubUserDataList.isEmpty()) {
+			throw new Exception(("No GitHub User Data Found"));
 		}
 
-		for (int i = 0; i < headerRow.getLastCellNum(); i++) {
-			Cell cell = headerRow.getCell(i);
-			if (cell != null && cell.getCellType() == CellType.STRING && cell.getStringCellValue().equalsIgnoreCase(columnName))
-			{
-				return i;
-			}
-		}
-		return -1;
+		byte[] excelData = RowMapperUtil.convertGitHubDataToExcel(gitHubUserDataList);
+
+		// Set response content type as application/vnd.ms-excel
+		response.setContentType(MediaType.APPLICATION_OCTET_STREAM_VALUE + "; charset=UTF-8");
+
+		// Set a downloadable filename
+		response.setHeader("Content-Disposition", "attachment; filename=\"user-data-excel.xls\"");
+
+		// Write the Excel data to the response output stream
+		response.getOutputStream().write(excelData);
+
 	}
 }
