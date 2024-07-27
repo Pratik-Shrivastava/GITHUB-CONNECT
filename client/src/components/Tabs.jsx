@@ -21,6 +21,12 @@ const Tabs = ({ type, setType }) => {
             >
                 Followers
             </button>
+            <button
+                className={`${type === "following" && "text-teal-400"}`}
+                onClick={() => setType("following")}
+            >
+                Followings
+            </button>
         </>
     );
 };
