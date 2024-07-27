@@ -23,5 +23,4 @@ public class GitHubUserData {
     private Long followers;
     private Long following;
 
-
 }
