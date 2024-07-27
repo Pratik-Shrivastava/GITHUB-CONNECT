@@ -103,6 +103,8 @@ const UserInfo = () => {
                     </div>
                 )}
                 {type === 'followers' && <UserContainer users={users} />}
+
+                {type === 'following' && <UserContainer users={users} />}
             </div>
         </div>
     );
