@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { FaDownload } from 'react-icons/fa';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import UserContainer from '../components/UserContainer';
@@ -124,16 +125,16 @@ function Users() {
                 },
                 body: JSON.stringify(userDetails),
             });
-    
+
             console.log(response);
-    
+
             if (!response.ok) {
                 throw new Error('Network response was not ok');
             }
-    
+
             const blob = await response.blob();
             const url = URL.createObjectURL(blob);
-    
+
             const link = document.createElement('a');
             link.href = url;
             link.setAttribute('download', 'user_data.xls'); // Adjusted filename to match the server's response
@@ -152,16 +153,7 @@ function Users() {
         <div className='p-5'>
             <ToastContainer position="top-right" autoClose={3000} />
             <div className='flex flex-col items-center w-full'>
-                <div className="flex justify-end">
-                    {isFileUploaded && (
-                        <button
-                            className="bg-teal-500 text-white font-semibold px-4 py-2 rounded-lg mb-4"
-                            onClick={handleDownload}
-                        >
-                            Download User Details
-                        </button>
-                    )}
-                </div>
+
                 <div className='flex justify-center items-center h-11 my-5 w-full ml-4'>
                     <input
                         type='text'
@@ -191,7 +183,7 @@ function Users() {
                     />
                     <input
                         type='text'
-                        placeholder='Enter column name...'
+                        placeholder='Specify column name...'
                         value={columnName}
                         onChange={handleColumnNameChange}
                         className='h-full md:w-1/3 w-2/3 text-gray-800 mx-0.5 px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-teal-500'
@@ -202,6 +194,15 @@ function Users() {
                     >
                         Upload
                     </button>
+                    {isFileUploaded && (
+                        <button
+                            className="bg-teal-500 text-white font-semibold px-4 py-2 ml-2 rounded-lg border-t border-r border-b border-teal-500 hover:bg-teal-600 focus:outline-none focus:ring-2 focus:ring-teal-500 flex items-center"
+                            onClick={handleDownload}
+                        >
+                            <FaDownload className="mr-2" />
+                            Download User Details
+                        </button>
+                    )}
 
                 </div>
 
