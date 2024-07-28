@@ -16,7 +16,7 @@ function Users() {
 
     const baseURL = "https://api.github.com/users";
     const uploadURL = "http://localhost:8084/github-connect/upload-excel";
-    const downloadURL = "http://localhost:8084/github-connect/github-user-data/download-excel";
+    // const downloadURL = "http://localhost:8084/github-connect/github-user-data/download-excel";
 
     const user = useRef('');
     const fileInputRef = useRef(null);
@@ -140,7 +140,9 @@ function Users() {
                 fileInputRef.current.value = '';
             }
         } catch (error) {
-            toast.error(error.message);
+            // setError(error)
+            console.log(error)
+
         } finally {
             setUploadLoading(false);
         }
@@ -154,7 +156,7 @@ function Users() {
         <div className='p-5'>
             <ToastContainer position="top-right" autoClose={3000} />
             <div className='flex flex-col items-center w-full'>
-                <div className='flex justify-center items-center h-11 my-5 w-full'>
+                <div className='flex justify-center items-center h-11 my-5 w-full ml-4'>
 
                     <input
                         type='text'
@@ -170,7 +172,7 @@ function Users() {
                 </div>
                 OR
                 {/* File upload and Column name input */}
-                <div className='flex justify-center items-center  mt-3'>
+                <div className='flex justify-center items-center w-full mt-3 mr-60'>
                     <input
                         type='file'
                         onChange={handleFileChange}
@@ -195,7 +197,7 @@ function Users() {
                         onClick={handleFileUpload}
                         className='bg-teal-500 text-white font-semibold px-4 py-2 ml-2 rounded-lg border-t border-r border-b border-teal-500 hover:bg-teal-600 focus:outline-none focus:ring-2 focus:ring-teal-500'
                     >
-                        Upload File
+                        Upload
                     </button>
                 </div>
 
