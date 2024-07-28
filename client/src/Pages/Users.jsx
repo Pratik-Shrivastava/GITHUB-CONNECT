@@ -1,4 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import UserContainer from '../components/UserContainer';
 import Loading from '../components/Loading';
 import { getUserLanguages } from '../utils/getTechstack';
@@ -9,7 +11,6 @@ function Users() {
     const [loading, setLoading] = useState(null);
     const [file, setFile] = useState(null);
     const [columnName, setColumnName] = useState('');
-    const [uploadMessage, setUploadMessage] = useState('');
     const [uploadLoading, setUploadLoading] = useState(false);
     const [downloadUrl, setDownloadUrl] = useState('');
 
@@ -19,22 +20,21 @@ function Users() {
 
     const user = useRef('');
     const fileInputRef = useRef(null);
-
-    async function getAllUsers() {
-        if (user.current.value === "") {
-            setLoading(true);
-            try {
-                const res = await fetch(baseURL);
-                if (!res.ok) throw new Error('Failed to fetch users');
-                const data = await res.json();
-                setUsers(data);
-                setLoading(null);
-            } catch (error) {
-                setError(error.message);
-                setLoading(null); // Ensure loading state is reset on error
-            }
-        }
-    }
+    // async function getAllUsers() {
+    //     if (user.current.value === "") {
+    //         setLoading(true);
+    //         try {
+    //             const res = await fetch(baseURL);
+    //             if (!res.ok) throw new Error('Failed to fetch users');
+    //             const data = await res.json();
+    //             setUsers(data);
+    //             setLoading(null);
+    //         } catch (error) {
+    //             setError(error.message);
+    //             setLoading(null); // Ensure loading state is reset on error
+    //         }
+    //     }
+    // }
 
     async function getUser() {
         setLoading(true);
@@ -52,13 +52,13 @@ function Users() {
                 setLoading(false);
             }
         } else {
-            getAllUsers();
+            // getAllUsers();
         }
     }
 
+
     const handleFileChange = (event) => {
         setFile(event.target.files[0]);
-        setUploadMessage('');
     };
 
     const handleColumnNameChange = (event) => {
@@ -67,11 +67,11 @@ function Users() {
 
     const handleFileUpload = async () => {
         if (!file) {
-            setUploadMessage('No file selected');
+            toast.error('No file selected');
             return;
         }
         if (!columnName) {
-            setUploadMessage('No column name specified');
+            toast.error('No column name specified');
             return;
         }
 
@@ -114,7 +114,7 @@ function Users() {
             const userResults = await Promise.all(userPromises);
 
             setUsers(userResults);
-            setUploadMessage('File uploaded successfully');
+            toast.success('File uploaded successfully');
 
             // Send user data to download endpoint
             const jsonUserData = JSON.stringify(userResults);
@@ -139,22 +139,20 @@ function Users() {
             if (fileInputRef.current) {
                 fileInputRef.current.value = '';
             }
-
-            // Hide the success message after 3 seconds
-            setTimeout(() => setUploadMessage(''), 2000);
         } catch (error) {
-            setUploadMessage(error.message);
+            toast.error(error.message);
         } finally {
             setUploadLoading(false);
         }
     };
 
     useEffect(() => {
-        getAllUsers();
+        // getAllUsers();
     }, []); // Run once on component mount
 
     return (
         <div className='p-5'>
+            <ToastContainer position="top-right" autoClose={3000} />
             <div className='flex flex-col items-center w-full'>
                 <div className='flex justify-center items-center h-11 my-5 w-full'>
 
@@ -172,7 +170,7 @@ function Users() {
                 </div>
                 OR
                 {/* File upload and Column name input */}
-                <div className='flex justify-center items-center w-full mt-3'>
+                <div className='flex justify-center items-center  mt-3'>
                     <input
                         type='file'
                         onChange={handleFileChange}
@@ -190,7 +188,7 @@ function Users() {
                         placeholder='Enter column name...'
                         value={columnName}
                         onChange={handleColumnNameChange}
-                        className='h-full md:w-1/3 w-2/3 text-gray-800 mx-2 px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-teal-500'
+                        className='h-full md:w-1/3 w-2/3 text-gray-800 mx-0.5 px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-teal-500'
                     />
 
                     <button
@@ -202,7 +200,6 @@ function Users() {
                 </div>
 
                 {uploadLoading && <Loading />}
-                {uploadMessage && <p className="text-center mt-2">{uploadMessage}</p>}
                 {downloadUrl && (
                     <a
                         href={downloadUrl}
