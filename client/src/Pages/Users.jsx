@@ -10,7 +10,7 @@ function Users() {
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(null);
     const [file, setFile] = useState(null);
-    const [columnName, setColumnName] = useState('');
+    const [columnName, setColumnName] = useState(''); ``
     const [uploadLoading, setUploadLoading] = useState(false);
     const [isFileUploaded, setIsFileUploaded] = useState(false);
     const [userDetails, setUserDetails] = useState([]);
@@ -154,7 +154,16 @@ function Users() {
         <div className='p-5'>
             <ToastContainer position="top-right" autoClose={3000} />
             <div className='flex flex-col items-center w-full'>
-
+                <div className="flex justify-end">
+                    {isFileUploaded && (
+                        <button
+                            className="bg-teal-500 text-white font-semibold px-4 py-2 rounded-lg mb-4"
+                            onClick={handleDownload}
+                        >
+                            Download User Details
+                        </button>
+                    )}
+                </div>
                 <div className='flex justify-center items-center h-11 my-5 w-full ml-4'>
                     <input
                         type='text'
@@ -195,14 +204,7 @@ function Users() {
                     >
                         Upload
                     </button>
-                    {isFileUploaded && (
-                        <button
-                            className='bg-teal-500 text-white font-semibold px-4 py-2 rounded-lg mb-4'
-                            onClick={handleDownload}
-                        >
-                            Download User Details
-                        </button>
-                    )}
+
                 </div>
 
                 {uploadLoading && <Loading />}
