@@ -84,7 +84,7 @@ function Users() {
                     name: user.name || user.login,
                     languages: languages.join(', '),
                     location: user.location || 'N/A',
-                    // activities: activities,
+                    activities: 100,
                     numberOfRepository: user.public_repos,
                     currentCompany: user.company || 'N/A',
                     followers: user.followers,
@@ -124,20 +124,19 @@ function Users() {
                 },
                 body: JSON.stringify(userDetails),
             });
-
+    
+            console.log(response);
+    
             if (!response.ok) {
                 throw new Error('Network response was not ok');
             }
-
-            const formData = await response.formData();
-            const excelFile = formData.get('excel_file'); // Assuming the Excel file is named 'excel_file'
-            const blob = new Blob([excelFile], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+    
+            const blob = await response.blob();
             const url = URL.createObjectURL(blob);
-
+    
             const link = document.createElement('a');
             link.href = url;
-
-            link.setAttribute('download', 'user_data.xlsx');
+            link.setAttribute('download', 'user_data.xls'); // Adjusted filename to match the server's response
             document.body.appendChild(link);
             link.click();
             document.body.removeChild(link);
@@ -146,7 +145,6 @@ function Users() {
             console.error('Error downloading file:', error);
         }
     };
-
 
     useEffect(() => { }, []);
 
