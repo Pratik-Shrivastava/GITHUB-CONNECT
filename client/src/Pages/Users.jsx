@@ -12,29 +12,15 @@ function Users() {
     const [file, setFile] = useState(null);
     const [columnName, setColumnName] = useState('');
     const [uploadLoading, setUploadLoading] = useState(false);
-    const [downloadUrl, setDownloadUrl] = useState('');
+    const [isFileUploaded, setIsFileUploaded] = useState(false);
+    const [userDetails, setUserDetails] = useState([]);
 
     const baseURL = "https://api.github.com/users";
     const uploadURL = "http://localhost:8084/github-connect/upload-excel";
-    // const downloadURL = "http://localhost:8084/github-connect/github-user-data/download-excel";
+    const downloadURL = "http://localhost:8084/github-connect/github-user-data/download-excel";
 
     const user = useRef('');
     const fileInputRef = useRef(null);
-    // async function getAllUsers() {
-    //     if (user.current.value === "") {
-    //         setLoading(true);
-    //         try {
-    //             const res = await fetch(baseURL);
-    //             if (!res.ok) throw new Error('Failed to fetch users');
-    //             const data = await res.json();
-    //             setUsers(data);
-    //             setLoading(null);
-    //         } catch (error) {
-    //             setError(error.message);
-    //             setLoading(null); // Ensure loading state is reset on error
-    //         }
-    //     }
-    // }
 
     async function getUser() {
         setLoading(true);
@@ -51,11 +37,8 @@ function Users() {
             } finally {
                 setLoading(false);
             }
-        } else {
-            // getAllUsers();
         }
     }
-
 
     const handleFileChange = (event) => {
         setFile(event.target.files[0]);
@@ -88,76 +71,91 @@ function Users() {
             });
             if (!response.ok) throw new Error('Failed to upload file');
             const result = await response.json();
-            const usernames = result.data; // Get usernames from response
+            const usernames = result.data;
 
-            // Fetch user data for each username and languages
-            const userPromises = usernames.map(async (username) => {
-                const userResponse = await fetch(`${baseURL}/${username}`);
-                if (!userResponse.ok) throw new Error('Failed to fetch user data');
-                const userData = await userResponse.json();
-
-                // Fetch top 3 languages for the user
-                const topLanguages = await getUserLanguages(username);
-
-                return {
-                    name: userData.login,
-                    languages: topLanguages.join(', '), // Join top 3 languages
-                    location: userData.location || 'Unknown',
-                    activities: userData.public_repos, // Example, adjust accordingly
-                    numberOfRepository: userData.public_repos,
-                    currentCompany: 'Unknown', // Example static value, adjust accordingly
-                    followers: userData.followers,
-                    following: userData.following
-                };
-            });
-
+            const userPromises = usernames.map(username => fetch(`${baseURL}/${username}`)
+                .then(res => res.json()));
             const userResults = await Promise.all(userPromises);
+
+            const userDetails = await Promise.all(userResults.map(async (user) => {
+                const languages = await getUserLanguages(user.login);
+                // const activities = await getUserActivities(user.login);
+                return {
+                    name: user.name || user.login,
+                    languages: languages.join(', '),
+                    location: user.location || 'N/A',
+                    // activities: activities,
+                    numberOfRepository: user.public_repos,
+                    currentCompany: user.company || 'N/A',
+                    followers: user.followers,
+                    following: user.following
+                };
+            }));
+
+            console.log('User Details:', JSON.stringify(userDetails, null, 2));
+
+            // Update state with userDetails and set isFileUploaded to true
+            setUserDetails(userDetails);
+            setIsFileUploaded(true);
 
             setUsers(userResults);
             toast.success('File uploaded successfully');
 
-            // Send user data to download endpoint
-            const jsonUserData = JSON.stringify(userResults);
-            const downloadResponse = await fetch(downloadURL, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: jsonUserData
-            });
-
-            if (downloadResponse.ok) {
-                const downloadLink = await downloadResponse.json();
-                setDownloadUrl(downloadLink.url); // Assuming the response contains a URL to the downloadable file
-            } else {
-                throw new Error('Failed to get download link');
-            }
-
-            // Clear file and column name inputs
             setFile(null);
             setColumnName('');
             if (fileInputRef.current) {
                 fileInputRef.current.value = '';
             }
-        } catch (error) {
-            // setError(error)
-            console.log(error)
 
+        } catch (error) {
+            console.error(error);
+            toast.error('Error uploading file');
         } finally {
             setUploadLoading(false);
         }
     };
 
-    useEffect(() => {
-        // getAllUsers();
-    }, []); // Run once on component mount
+    const handleDownload = async () => {
+        try {
+            const response = await fetch(downloadURL, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(userDetails),
+            });
+
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+
+            const formData = await response.formData();
+            const excelFile = formData.get('excel_file'); // Assuming the Excel file is named 'excel_file'
+            const blob = new Blob([excelFile], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+            const url = URL.createObjectURL(blob);
+
+            const link = document.createElement('a');
+            link.href = url;
+
+            link.setAttribute('download', 'user_data.xlsx');
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            URL.revokeObjectURL(url);
+        } catch (error) {
+            console.error('Error downloading file:', error);
+        }
+    };
+
+
+    useEffect(() => { }, []);
 
     return (
         <div className='p-5'>
             <ToastContainer position="top-right" autoClose={3000} />
             <div className='flex flex-col items-center w-full'>
-                <div className='flex justify-center items-center h-11 my-5 w-full ml-4'>
 
+                <div className='flex justify-center items-center h-11 my-5 w-full ml-4'>
                     <input
                         type='text'
                         placeholder='Search github username...'
@@ -171,7 +169,6 @@ function Users() {
                     </button>
                 </div>
                 OR
-                {/* File upload and Column name input */}
                 <div className='flex justify-center items-center w-full mt-3 mr-60'>
                     <input
                         type='file'
@@ -192,34 +189,27 @@ function Users() {
                         onChange={handleColumnNameChange}
                         className='h-full md:w-1/3 w-2/3 text-gray-800 mx-0.5 px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-teal-500'
                     />
-
                     <button
                         onClick={handleFileUpload}
                         className='bg-teal-500 text-white font-semibold px-4 py-2 ml-2 rounded-lg border-t border-r border-b border-teal-500 hover:bg-teal-600 focus:outline-none focus:ring-2 focus:ring-teal-500'
                     >
                         Upload
                     </button>
+                    {isFileUploaded && (
+                        <button
+                            className='bg-teal-500 text-white font-semibold px-4 py-2 rounded-lg mb-4'
+                            onClick={handleDownload}
+                        >
+                            Download User Details
+                        </button>
+                    )}
                 </div>
 
                 {uploadLoading && <Loading />}
-                {downloadUrl && (
-                    <a
-                        href={downloadUrl}
-                        className="bg-teal-500 text-white font-semibold px-4 py-2 mt-4 rounded-lg border-t border-r border-b border-teal-500 hover:bg-teal-600 focus:outline-none focus:ring-2 focus:ring-teal-500"
-                        download
-                    >
-                        Download User Data
-                    </a>
-                )}
             </div>
 
-            {/* Render Loading component if loading is true */}
             {loading && !error && <Loading />}
-
-            {/* Render error message if error is true */}
             {error && <p className="text-red-500 text-center">{error}</p>}
-
-            {/* Render UserContainer only if both loading is false and error is null */}
             {!loading && !error && <UserContainer users={users} />}
         </div>
     );

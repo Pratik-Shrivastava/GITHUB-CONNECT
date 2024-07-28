@@ -9,10 +9,9 @@ const Home = () => {
                 <div className="bg-black bg-opacity-50 lg:w-1/2 max-w-xl mx-auto px-4 py-8 text-center rounded-lg">
                     <h1 className="text-5xl font-bold mb-4 text-cyan-300">Welcome to GitHub Connect</h1>
                     <p className="text-lg mb-8 text-white">A platform to explore GitHub profiles.</p>
-                    <div className="max-w-md mx-auto text-left text-white space-y-4 ">
+                    <div className="max-w-md mx-auto text-left text-white space-y-4">
                         <p>GitHub Connect allows you to search and discover GitHub profiles using usernames. Whether you're looking for developers, exploring projects, or connecting with collaborators, GitHub Connect simplifies the process.</p>
                         <p>Get started by entering a GitHub username in the search box above and click Search.</p>
-                        {/* <p>Additionally, you can upload a file containing multiple GitHub usernames and view all profiles in one place. </p> */}
                     </div>
                     <Link to="/get-connect">
                         <button className="border border-teal-500 text-teal-500 hover:bg-teal-500 hover:text-white py-2 px-4 rounded-md text-lg font-semibold mt-8 transition duration-300">
@@ -26,7 +25,7 @@ const Home = () => {
                     <h2 className="text-4xl font-bold text-cyan-300 text-center mb-8">Our Features</h2>
                     <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
                         {/* Feature 1 */}
-                        <div className="bg-gray-700 p-6 rounded-lg text-center">
+                        <div className="bg-gray-700 p-6 rounded-lg text-center transform transition-transform duration-300 hover:scale-105 hover:shadow-xl">
                             <div className="mb-4">
                                 <svg className="h-12 w-12 text-cyan-300 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4l3 3"></path>
@@ -37,7 +36,7 @@ const Home = () => {
                         </div>
 
                         {/* Feature 2 */}
-                        <div className="bg-gray-700 p-6 rounded-lg text-center">
+                        <div className="bg-gray-700 p-6 rounded-lg text-center transform transition-transform duration-300 hover:scale-105 hover:shadow-xl">
                             <div className="mb-4">
                                 <svg className="h-12 w-12 text-cyan-300 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M20 12H4"></path>
@@ -48,7 +47,7 @@ const Home = () => {
                         </div>
 
                         {/* Feature 3 */}
-                        <div className="bg-gray-700 p-6 rounded-lg text-center">
+                        <div className="bg-gray-700 p-6 rounded-lg text-center transform transition-transform duration-300 hover:scale-105 hover:shadow-xl">
                             <div className="mb-4">
                                 <svg className="h-12 w-12 text-cyan-300 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4l3 3"></path>

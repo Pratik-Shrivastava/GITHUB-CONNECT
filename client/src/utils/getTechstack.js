@@ -6,7 +6,7 @@ export async function getUserLanguages(username) {
 
     try {
         // Fetch the repositories of the user
-        const reposResponse = await fetch(`${baseURL}/users/${username}/repos?per_page=5`);
+        const reposResponse = await fetch(`${baseURL}/users/${username}/repos?per_page=10`);
         if (!reposResponse.ok) throw new Error('Failed to fetch repositories');
         const repos = await reposResponse.json();
 
