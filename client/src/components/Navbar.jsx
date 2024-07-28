@@ -14,7 +14,7 @@ const Navbar = () => {
 
     return (
         <>
-            <nav className="border-b border-gray-700">
+            <nav className="border-b border-gray-700 ">
                 <div className="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
                     <div className="flex items-center justify-between h-16">
                         {/* Logo */}
@@ -43,7 +43,7 @@ const Navbar = () => {
 
             {isModalOpen && (
                 <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
-                    <div className="bg-white rounded-lg p-6 relative max-w-md w-full">
+                    <div className="bg-slate-200 rounded-lg p-6 relative max-w-md w-full">
                         <h2 className="text-xl text-black font-bold mb-4">Instructions</h2>
                         <ul className="list-disc list-inside text-gray-800 space-y-2">
                             <li>
